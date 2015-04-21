@@ -10,20 +10,6 @@ Este es el repositorio del proyecto que usaremos durante el bloque de cloud
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Descargar el repo y comenzar desde la rama master
+* Crearé una rama por cada apartado, siempre partiendo de Master
+* Los Pod que usemos estarán a nivel de rama
