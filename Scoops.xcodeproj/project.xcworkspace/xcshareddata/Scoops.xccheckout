@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5603D253-A826-4C87-A9A4-5E026B7816B5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Scoops</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AC71A16D33DB493F4551F46C5001C44936E89A55</key>
+		<string>https://bitbucket.org/byjuanmn/scoops.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Scoops.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AC71A16D33DB493F4551F46C5001C44936E89A55</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/byjuanmn/scoops.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AC71A16D33DB493F4551F46C5001C44936E89A55</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AC71A16D33DB493F4551F46C5001C44936E89A55</string>
+			<key>IDESourceControlWCCName</key>
+			<string>scoops</string>
+		</dict>
+	</array>
+</dict>
+</plist>

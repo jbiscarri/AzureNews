@@ -20,6 +20,7 @@
 		5D475BFC1AE2CBDA00B9ADB1 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BFB1AE2CBDA00B9ADB1 /* EmptySegue.m */; };
 		5D475BFF1AE2CC7400B9ADB1 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */; };
 		5D475C021AE3BB4900B9ADB1 /* MyNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475C011AE3BB4900B9ADB1 /* MyNews.m */; };
+		B8ADD9DC1AE6E20900D2C9B3 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8ADD9DB1AE6E20900D2C9B3 /* WindowsAzureMobileServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		5D475C001AE3BB4900B9ADB1 /* MyNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNews.h; sourceTree = "<group>"; };
 		5D475C011AE3BB4900B9ADB1 /* MyNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNews.m; sourceTree = "<group>"; };
+		B8ADD9DB1AE6E20900D2C9B3 /* WindowsAzureMobileServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindowsAzureMobileServices.framework; sourceTree = "<group>"; };
+		B8ADD9DE1AE6E25700D2C9B3 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Settings/Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8ADD9DC1AE6E20900D2C9B3 /* WindowsAzureMobileServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +102,7 @@
 		5D475BC91AE17D8400B9ADB1 /* Scoops */ = {
 			isa = PBXGroup;
 			children = (
+				B8ADD9DD1AE6E22300D2C9B3 /* Settings */,
 				5D475BF61AE2753B00B9ADB1 /* ViewControllers */,
 				5D475BCE1AE17D8400B9ADB1 /* AppDelegate.h */,
 				5D475BCF1AE17D8400B9ADB1 /* AppDelegate.m */,
@@ -113,6 +118,7 @@
 		5D475BCA1AE17D8400B9ADB1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B8ADD9DB1AE6E20900D2C9B3 /* WindowsAzureMobileServices.framework */,
 				5D475BCB1AE17D8400B9ADB1 /* Info.plist */,
 				5D475BCC1AE17D8400B9ADB1 /* main.m */,
 			);
@@ -169,6 +175,14 @@
 				5D226B0E1AE4587600FBE190 /* NewsCell.xib */,
 			);
 			name = "collection Cells";
+			sourceTree = "<group>";
+		};
+		B8ADD9DD1AE6E22300D2C9B3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B8ADD9DE1AE6E25700D2C9B3 /* Constants.h */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,6 +421,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Scoops",
+				);
 				INFOPLIST_FILE = Scoops/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -419,6 +437,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Scoops",
+				);
 				INFOPLIST_FILE = Scoops/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

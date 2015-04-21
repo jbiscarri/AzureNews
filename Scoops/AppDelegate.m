@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "Constants.h"
+#import <WindowsAzureMobileServices/WindowsAzureMobileServices.h>
 
 @interface AppDelegate ()
 
@@ -16,7 +18,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    /*
+    MSClient *client = [MSClient clientWithApplicationURL:[NSURL URLWithString:kAzureEndPoint]
+                                           applicationKey:kAzureAppKey];
+    NSLog(@"%@", client.debugDescription);
+     */
     return YES;
 }
 
