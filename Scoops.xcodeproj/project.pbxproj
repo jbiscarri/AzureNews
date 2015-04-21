@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5D226B0F1AE4587600FBE190 /* NewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D226B0D1AE4587600FBE190 /* NewsCell.m */; };
+		5D226B101AE4587600FBE190 /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D226B0E1AE4587600FBE190 /* NewsCell.xib */; };
+		5D475BCD1AE17D8400B9ADB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BCC1AE17D8400B9ADB1 /* main.m */; };
+		5D475BD01AE17D8400B9ADB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BCF1AE17D8400B9ADB1 /* AppDelegate.m */; };
+		5D475BD61AE17D8400B9ADB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D475BD41AE17D8400B9ADB1 /* Main.storyboard */; };
+		5D475BD81AE17D8400B9ADB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D475BD71AE17D8400B9ADB1 /* Images.xcassets */; };
+		5D475BDB1AE17D8400B9ADB1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D475BD91AE17D8400B9ADB1 /* LaunchScreen.xib */; };
+		5D475BF11AE182B300B9ADB1 /* ScoopTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BF01AE182B300B9ADB1 /* ScoopTest.m */; };
+		5D475BF41AE1852F00B9ADB1 /* Scoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BF31AE1852F00B9ADB1 /* Scoop.m */; };
+		5D475BF91AE2756E00B9ADB1 /* ScoopManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BF81AE2756E00B9ADB1 /* ScoopManagerViewController.m */; };
+		5D475BFC1AE2CBDA00B9ADB1 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BFB1AE2CBDA00B9ADB1 /* EmptySegue.m */; };
+		5D475BFF1AE2CC7400B9ADB1 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */; };
+		5D475C021AE3BB4900B9ADB1 /* MyNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475C011AE3BB4900B9ADB1 /* MyNews.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5D475BE11AE17D8400B9ADB1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D475BBF1AE17D8400B9ADB1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D475BC61AE17D8400B9ADB1;
+			remoteInfo = Scoops;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5D226B0C1AE4587600FBE190 /* NewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCell.h; sourceTree = "<group>"; };
+		5D226B0D1AE4587600FBE190 /* NewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCell.m; sourceTree = "<group>"; };
+		5D226B0E1AE4587600FBE190 /* NewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
+		5D475BC71AE17D8400B9ADB1 /* Scoops.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scoops.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D475BCB1AE17D8400B9ADB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D475BCC1AE17D8400B9ADB1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5D475BCE1AE17D8400B9ADB1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5D475BCF1AE17D8400B9ADB1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5D475BD51AE17D8400B9ADB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5D475BD71AE17D8400B9ADB1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5D475BDA1AE17D8400B9ADB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		5D475BE01AE17D8400B9ADB1 /* ScoopsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoopsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D475BE51AE17D8400B9ADB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D475BF01AE182B300B9ADB1 /* ScoopTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoopTest.m; sourceTree = "<group>"; };
+		5D475BF21AE1852F00B9ADB1 /* Scoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scoop.h; sourceTree = "<group>"; };
+		5D475BF31AE1852F00B9ADB1 /* Scoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scoop.m; sourceTree = "<group>"; };
+		5D475BF71AE2756E00B9ADB1 /* ScoopManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoopManagerViewController.h; sourceTree = "<group>"; };
+		5D475BF81AE2756E00B9ADB1 /* ScoopManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoopManagerViewController.m; sourceTree = "<group>"; };
+		5D475BFA1AE2CBDA00B9ADB1 /* EmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySegue.h; sourceTree = "<group>"; };
+		5D475BFB1AE2CBDA00B9ADB1 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
+		5D475BFD1AE2CC7400B9ADB1 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
+		5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		5D475C001AE3BB4900B9ADB1 /* MyNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNews.h; sourceTree = "<group>"; };
+		5D475C011AE3BB4900B9ADB1 /* MyNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNews.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5D475BC41AE17D8400B9ADB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D475BDD1AE17D8400B9ADB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5D475BBE1AE17D8400B9ADB1 = {
+			isa = PBXGroup;
+			children = (
+				5D475BC91AE17D8400B9ADB1 /* Scoops */,
+				5D475BE31AE17D8400B9ADB1 /* ScoopsTests */,
+				5D475BC81AE17D8400B9ADB1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5D475BC81AE17D8400B9ADB1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D475BC71AE17D8400B9ADB1 /* Scoops.app */,
+				5D475BE01AE17D8400B9ADB1 /* ScoopsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5D475BC91AE17D8400B9ADB1 /* Scoops */ = {
+			isa = PBXGroup;
+			children = (
+				5D475BF61AE2753B00B9ADB1 /* ViewControllers */,
+				5D475BCE1AE17D8400B9ADB1 /* AppDelegate.h */,
+				5D475BCF1AE17D8400B9ADB1 /* AppDelegate.m */,
+				5D475BD41AE17D8400B9ADB1 /* Main.storyboard */,
+				5D475BD71AE17D8400B9ADB1 /* Images.xcassets */,
+				5D475BD91AE17D8400B9ADB1 /* LaunchScreen.xib */,
+				5D475BCA1AE17D8400B9ADB1 /* Supporting Files */,
+				5D475BF51AE1853400B9ADB1 /* Model */,
+			);
+			path = Scoops;
+			sourceTree = "<group>";
+		};
+		5D475BCA1AE17D8400B9ADB1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5D475BCB1AE17D8400B9ADB1 /* Info.plist */,
+				5D475BCC1AE17D8400B9ADB1 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5D475BE31AE17D8400B9ADB1 /* ScoopsTests */ = {
+			isa = PBXGroup;
+			children = (
+				5D475BE41AE17D8400B9ADB1 /* Supporting Files */,
+				5D475BF01AE182B300B9ADB1 /* ScoopTest.m */,
+			);
+			path = ScoopsTests;
+			sourceTree = "<group>";
+		};
+		5D475BE41AE17D8400B9ADB1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5D475BE51AE17D8400B9ADB1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5D475BF51AE1853400B9ADB1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5D475BF21AE1852F00B9ADB1 /* Scoop.h */,
+				5D475BF31AE1852F00B9ADB1 /* Scoop.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5D475BF61AE2753B00B9ADB1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5D475C031AE3C0CD00B9ADB1 /* collection Cells */,
+				5D475BF71AE2756E00B9ADB1 /* ScoopManagerViewController.h */,
+				5D475BF81AE2756E00B9ADB1 /* ScoopManagerViewController.m */,
+				5D475BFA1AE2CBDA00B9ADB1 /* EmptySegue.h */,
+				5D475BFB1AE2CBDA00B9ADB1 /* EmptySegue.m */,
+				5D475BFD1AE2CC7400B9ADB1 /* ContainerViewController.h */,
+				5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */,
+				5D475C001AE3BB4900B9ADB1 /* MyNews.h */,
+				5D475C011AE3BB4900B9ADB1 /* MyNews.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5D475C031AE3C0CD00B9ADB1 /* collection Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5D226B0C1AE4587600FBE190 /* NewsCell.h */,
+				5D226B0D1AE4587600FBE190 /* NewsCell.m */,
+				5D226B0E1AE4587600FBE190 /* NewsCell.xib */,
+			);
+			name = "collection Cells";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5D475BC61AE17D8400B9ADB1 /* Scoops */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D475BEA1AE17D8400B9ADB1 /* Build configuration list for PBXNativeTarget "Scoops" */;
+			buildPhases = (
+				5D475BC31AE17D8400B9ADB1 /* Sources */,
+				5D475BC41AE17D8400B9ADB1 /* Frameworks */,
+				5D475BC51AE17D8400B9ADB1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Scoops;
+			productName = Scoops;
+			productReference = 5D475BC71AE17D8400B9ADB1 /* Scoops.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5D475BDF1AE17D8400B9ADB1 /* ScoopsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D475BED1AE17D8400B9ADB1 /* Build configuration list for PBXNativeTarget "ScoopsTests" */;
+			buildPhases = (
+				5D475BDC1AE17D8400B9ADB1 /* Sources */,
+				5D475BDD1AE17D8400B9ADB1 /* Frameworks */,
+				5D475BDE1AE17D8400B9ADB1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D475BE21AE17D8400B9ADB1 /* PBXTargetDependency */,
+			);
+			name = ScoopsTests;
+			productName = ScoopsTests;
+			productReference = 5D475BE01AE17D8400B9ADB1 /* ScoopsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5D475BBF1AE17D8400B9ADB1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Cloud On Mobile";
+				TargetAttributes = {
+					5D475BC61AE17D8400B9ADB1 = {
+						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 8Z8X9YVPSZ;
+					};
+					5D475BDF1AE17D8400B9ADB1 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 5D475BC61AE17D8400B9ADB1;
+					};
+				};
+			};
+			buildConfigurationList = 5D475BC21AE17D8400B9ADB1 /* Build configuration list for PBXProject "Scoops" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5D475BBE1AE17D8400B9ADB1;
+			productRefGroup = 5D475BC81AE17D8400B9ADB1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5D475BC61AE17D8400B9ADB1 /* Scoops */,
+				5D475BDF1AE17D8400B9ADB1 /* ScoopsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D475BC51AE17D8400B9ADB1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D475BD61AE17D8400B9ADB1 /* Main.storyboard in Resources */,
+				5D475BDB1AE17D8400B9ADB1 /* LaunchScreen.xib in Resources */,
+				5D226B101AE4587600FBE190 /* NewsCell.xib in Resources */,
+				5D475BD81AE17D8400B9ADB1 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D475BDE1AE17D8400B9ADB1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5D475BC31AE17D8400B9ADB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D475BD01AE17D8400B9ADB1 /* AppDelegate.m in Sources */,
+				5D475BFC1AE2CBDA00B9ADB1 /* EmptySegue.m in Sources */,
+				5D226B0F1AE4587600FBE190 /* NewsCell.m in Sources */,
+				5D475BFF1AE2CC7400B9ADB1 /* ContainerViewController.m in Sources */,
+				5D475C021AE3BB4900B9ADB1 /* MyNews.m in Sources */,
+				5D475BF91AE2756E00B9ADB1 /* ScoopManagerViewController.m in Sources */,
+				5D475BF41AE1852F00B9ADB1 /* Scoop.m in Sources */,
+				5D475BCD1AE17D8400B9ADB1 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D475BDC1AE17D8400B9ADB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D475BF11AE182B300B9ADB1 /* ScoopTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5D475BE21AE17D8400B9ADB1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D475BC61AE17D8400B9ADB1 /* Scoops */;
+			targetProxy = 5D475BE11AE17D8400B9ADB1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5D475BD41AE17D8400B9ADB1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5D475BD51AE17D8400B9ADB1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5D475BD91AE17D8400B9ADB1 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5D475BDA1AE17D8400B9ADB1 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5D475BE81AE17D8400B9ADB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5D475BE91AE17D8400B9ADB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5D475BEB1AE17D8400B9ADB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Scoops/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5D475BEC1AE17D8400B9ADB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Scoops/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5D475BEE1AE17D8400B9ADB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ScoopsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scoops.app/Scoops";
+			};
+			name = Debug;
+		};
+		5D475BEF1AE17D8400B9ADB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ScoopsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scoops.app/Scoops";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5D475BC21AE17D8400B9ADB1 /* Build configuration list for PBXProject "Scoops" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D475BE81AE17D8400B9ADB1 /* Debug */,
+				5D475BE91AE17D8400B9ADB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D475BEA1AE17D8400B9ADB1 /* Build configuration list for PBXNativeTarget "Scoops" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D475BEB1AE17D8400B9ADB1 /* Debug */,
+				5D475BEC1AE17D8400B9ADB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D475BED1AE17D8400B9ADB1 /* Build configuration list for PBXNativeTarget "ScoopsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D475BEE1AE17D8400B9ADB1 /* Debug */,
+				5D475BEF1AE17D8400B9ADB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5D475BBF1AE17D8400B9ADB1 /* Project object */;
+}
