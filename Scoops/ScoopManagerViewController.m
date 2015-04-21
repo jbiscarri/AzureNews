@@ -7,15 +7,9 @@
 //
 
 #import "ScoopManagerViewController.h"
-#import "Constants.h"
 #import "ContainerViewController.h"
-#import <WindowsAzureMobileServices/WindowsAzureMobileServices.h>
-#import "Scoop.h"
 
 @interface ScoopManagerViewController ()
-{
-    MSClient *client;
-}
 
 @property (weak, nonatomic) ContainerViewController * containerViewController;
 @property (nonatomic) CGRect oldRect;
@@ -31,7 +25,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupKeyboardNotifications];
-    [self warmUpMSClient];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,38 +52,6 @@
 
 }
 
-#pragma mark - Azure connect, setup, login etc...
-
-- (void)warmUpMSClient
-{
-    client = [MSClient clientWithApplicationURL:[NSURL URLWithString:kAzureEndPoint]
-                                 applicationKey:kAzureAppKey];
-    NSLog(@"%@", client.debugDescription);
-
-}
-
-- (void)addNewToAzure
-{
-
-    MSTable *news = [client tableWithName:@"news"];
-    /*
-    Scoop *scoop = [[Scoop alloc] initWithTitle:self.titleText.text
-                                       andPhoto:nil
-                                          aText:self.boxNews.text
-                                       anAuthor:nil
-                                          aCoor:CLLocationCoordinate2DMake(0, 0)];
-     */
-    NSDictionary *scoop = @{@"titulo": self.titleText.text,
-                            @"noticia": self.boxNews.text};
-    [news insert:scoop
-      completion:^(NSDictionary *item, NSError *error) {
-          if (error){
-              NSLog(@"Error %@", error);
-          }else{
-              NSLog(@"Ok");
-          }
-      }];
-}
 
 #pragma mark - keyboard
 
@@ -156,7 +117,6 @@
 }
 
 - (IBAction)addNew:(id)sender {
-    [self addNewToAzure];
     
 }
 - (IBAction)takePhoto:(id)sender {
