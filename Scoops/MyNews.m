@@ -5,15 +5,19 @@
 //  Created by Juan Antonio Martin Noguera on 19/04/15.
 //  Copyright (c) 2015 Cloud On Mobile. All rights reserved.
 //
+
+#import <WindowsAzureMobileServices/WindowsAzureMobileServices.h>
 #import "Scoop.h"
 #import "MyNews.h"
 #import "NewsCell.h"
+#import "sharedkeys.h"
+
 
 #define CELLIDENT @"MyNewCell"
 
 
 @interface MyNews () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>{
-    NSArray *model;
+    NSMutableArray *model;
     
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -26,7 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self populateModel];
+    model = [@[]mutableCopy];
+    [self populateModelFromAzure];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"NewsCell" bundle:nil]
           forCellWithReuseIdentifier:CELLIDENT];
@@ -79,24 +84,49 @@
 }
 
 #pragma mark - modelo
-
-- (void) populateModel{
+- (void)populateModelFromAzure{
     
-    Scoop *new1 = [[Scoop alloc]initWithTitle:@"Winter is coming"
-                                     andPhoto:nil
-                                        aText:@"Winter is comming is the first chapter...."
-                                     anAuthor:@"Juan"
-                                        aCoor:CLLocationCoordinate2DMake(0, 0)];
+    MSClient *  client = [MSClient clientWithApplicationURL:[NSURL URLWithString:AZUREMOBILESERVICE_ENDPOINT]
+                                             applicationKey:AZUREMOBILESERVICE_APPKEY];
     
-    Scoop *new2 = [[Scoop alloc]initWithTitle:@"Arcade Fire live"
-                                     andPhoto:nil
-                                        aText:@"Arcade Fire es uno de los grupos más sorprendetes en directo"
-                                     anAuthor:@"Juan"
-                                        aCoor:CLLocationCoordinate2DMake(0, 0)];
-
+    MSTable *table = [client tableWithName:@"news"];
     
-    model = @[new1, new2];
+    MSQuery *queryModel = [[MSQuery alloc]initWithTable:table];
+    [queryModel readWithCompletion:^(NSArray *items, NSInteger totalCount, NSError *error) {
+        
+    
+        
+        for (id item in items) {
+            NSLog(@"item -> %@", item);
+            Scoop *scoop = [[Scoop alloc]initWithTitle:item[@"titulo"] andPhoto:nil aText:item[@"noticia"] anAuthor:@"nil" aCoor:CLLocationCoordinate2DMake(0, 0)];
+            [model addObject:scoop];
+        }
+        [self.collectionView reloadData];
+    }];
+    
+    
 }
+
+
+//- (void) populateModel{
+//    
+//    UIImage * img2 = [UIImage imageNamed:@"winter-is-coming.jpg"];
+//    UIImage * img = [UIImage imageNamed:@"Arcadefire.jpg"];
+//    Scoop *new1 = [[Scoop alloc]initWithTitle:@"Winter is coming"
+//                                     andPhoto:UIImageJPEGRepresentation(img2, 1.f)
+//                                        aText:@"Winter is comming is the first chapter...."
+//                                     anAuthor:@"Juan"
+//                                        aCoor:CLLocationCoordinate2DMake(0, 0)];
+//    
+//    Scoop *new2 = [[Scoop alloc]initWithTitle:@"Arcade Fire live"
+//                                     andPhoto:UIImageJPEGRepresentation(img, 1.f)
+//                                        aText:@"Arcade Fire es uno de los grupos más sorprendetes en directo"
+//                                     anAuthor:@"Juan"
+//                                        aCoor:CLLocationCoordinate2DMake(0, 0)];
+//
+//    
+//    model = @[new1, new2];
+//}
 
 
 

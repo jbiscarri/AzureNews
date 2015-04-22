@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -19,6 +19,9 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LjC-to-RIW">
                                 <rect key="frame" x="0.0" y="424" width="600" height="126"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="126" id="CMk-ds-cWf"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="tLx-04-pFc" kind="embed" identifier="EmbedContainer" id="Wlu-Pa-pgn"/>
                                 </connections>
@@ -87,9 +90,16 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scoops Author" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydu-rT-LAi">
                                 <rect key="frame" x="206" y="30" width="188" height="36"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q3X-vt-X9T">
+                                <rect key="frame" x="534" y="20" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="QRd-rr-WJZ"/>
+                                    <constraint firstAttribute="width" constant="50" id="yUJ-5Z-1kx"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -101,6 +111,7 @@
                             <constraint firstAttribute="trailing" secondItem="SeB-19-1yj" secondAttribute="trailing" id="G3z-Sp-1Zj"/>
                             <constraint firstItem="EOG-xb-YB7" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="56" id="IHb-mh-WuY"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Kw1-Zl-lNe"/>
+                            <constraint firstItem="Q3X-vt-X9T" firstAttribute="leading" secondItem="ydu-rT-LAi" secondAttribute="trailing" priority="250" constant="140" id="LLC-Sw-gQY"/>
                             <constraint firstItem="yiQ-B2-smz" firstAttribute="top" secondItem="KHt-Nb-xof" secondAttribute="bottom" constant="13" id="LuV-Mg-Kdb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KHt-Nb-xof" secondAttribute="trailing" constant="14" id="Q7e-Ew-NwU"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="Qnh-71-8XI"/>
@@ -114,6 +125,7 @@
                             <constraint firstItem="LjC-to-RIW" firstAttribute="centerX" secondItem="Sf0-fT-aGZ" secondAttribute="centerX" id="cdz-7O-MxO"/>
                             <constraint firstItem="LjC-to-RIW" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="e95-tg-2J7"/>
                             <constraint firstItem="LjC-to-RIW" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="fGz-lY-763"/>
+                            <constraint firstItem="Q3X-vt-X9T" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="fs6-3Q-xwH"/>
                             <constraint firstAttribute="centerX" secondItem="ydu-rT-LAi" secondAttribute="centerX" id="fsH-I9-XQZ"/>
                             <constraint firstItem="Sf0-fT-aGZ" firstAttribute="top" secondItem="yiQ-B2-smz" secondAttribute="bottom" constant="8" id="iPE-2B-hVd"/>
                             <constraint firstItem="KHt-Nb-xof" firstAttribute="top" secondItem="EOG-xb-YB7" secondAttribute="bottom" constant="14" id="jIw-z1-jcn"/>
@@ -123,6 +135,7 @@
                             <constraint firstItem="EOG-xb-YB7" firstAttribute="baseline" secondItem="KHt-Nb-xof" secondAttribute="baseline" constant="-44" id="rg7-t4-Pdi"/>
                             <constraint firstAttribute="trailing" secondItem="LjC-to-RIW" secondAttribute="trailing" id="sFg-TW-pJf"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="wnN-O9-4Mk"/>
+                            <constraint firstItem="Q3X-vt-X9T" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="xB6-3l-XEd"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="yaj-9O-fPl"/>
                         </constraints>
                         <variation key="default">
@@ -140,6 +153,7 @@
                     </view>
                     <connections>
                         <outlet property="boxNews" destination="Sf0-fT-aGZ" id="nQf-T5-DQ8"/>
+                        <outlet property="picProfile" destination="Q3X-vt-X9T" id="dr8-TZ-Gbg"/>
                         <outlet property="titleText" destination="KHt-Nb-xof" id="GMx-Nh-oKG"/>
                         <outlet property="toolBarView" destination="SeB-19-1yj" id="9Mx-Gy-cBF"/>
                     </connections>
@@ -186,7 +200,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="go1-As-W61">
-                                <rect key="frame" x="0.0" y="-2" width="600" height="106"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="106"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s9e-Bb-PqQ">
                                     <size key="itemSize" width="50" height="50"/>

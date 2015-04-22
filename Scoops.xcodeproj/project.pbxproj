@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5D226B0F1AE4587600FBE190 /* NewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D226B0D1AE4587600FBE190 /* NewsCell.m */; };
 		5D226B101AE4587600FBE190 /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D226B0E1AE4587600FBE190 /* NewsCell.xib */; };
+		5D37DD3F1AE6C27B0038C7A2 /* ArcadeFire.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D37DD3E1AE6C27B0038C7A2 /* ArcadeFire.jpg */; };
+		5D37DD411AE6C42C0038C7A2 /* winter-is-coming.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D37DD401AE6C42C0038C7A2 /* winter-is-coming.jpg */; };
 		5D475BCD1AE17D8400B9ADB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BCC1AE17D8400B9ADB1 /* main.m */; };
 		5D475BD01AE17D8400B9ADB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BCF1AE17D8400B9ADB1 /* AppDelegate.m */; };
 		5D475BD61AE17D8400B9ADB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D475BD41AE17D8400B9ADB1 /* Main.storyboard */; };
@@ -20,6 +22,7 @@
 		5D475BFC1AE2CBDA00B9ADB1 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BFB1AE2CBDA00B9ADB1 /* EmptySegue.m */; };
 		5D475BFF1AE2CC7400B9ADB1 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */; };
 		5D475C021AE3BB4900B9ADB1 /* MyNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475C011AE3BB4900B9ADB1 /* MyNews.m */; };
+		5DEFF8951AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEFF8941AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 		5D226B0C1AE4587600FBE190 /* NewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCell.h; sourceTree = "<group>"; };
 		5D226B0D1AE4587600FBE190 /* NewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCell.m; sourceTree = "<group>"; };
 		5D226B0E1AE4587600FBE190 /* NewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
+		5D37DD3D1AE6BF0B0038C7A2 /* sharedkeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedkeys.h; sourceTree = "<group>"; };
+		5D37DD3E1AE6C27B0038C7A2 /* ArcadeFire.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ArcadeFire.jpg; sourceTree = "<group>"; };
+		5D37DD401AE6C42C0038C7A2 /* winter-is-coming.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "winter-is-coming.jpg"; sourceTree = "<group>"; };
 		5D475BC71AE17D8400B9ADB1 /* Scoops.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scoops.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D475BCB1AE17D8400B9ADB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D475BCC1AE17D8400B9ADB1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -57,6 +63,7 @@
 		5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		5D475C001AE3BB4900B9ADB1 /* MyNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNews.h; sourceTree = "<group>"; };
 		5D475C011AE3BB4900B9ADB1 /* MyNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNews.m; sourceTree = "<group>"; };
+		5DEFF8941AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindowsAzureMobileServices.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DEFF8951AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,12 +85,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D37DD421AE6C4340038C7A2 /* fake resources */ = {
+			isa = PBXGroup;
+			children = (
+				5D37DD3E1AE6C27B0038C7A2 /* ArcadeFire.jpg */,
+				5D37DD401AE6C42C0038C7A2 /* winter-is-coming.jpg */,
+			);
+			name = "fake resources";
+			sourceTree = "<group>";
+		};
 		5D475BBE1AE17D8400B9ADB1 = {
 			isa = PBXGroup;
 			children = (
+				5D37DD421AE6C4340038C7A2 /* fake resources */,
+				5D37DD3D1AE6BF0B0038C7A2 /* sharedkeys.h */,
 				5D475BC91AE17D8400B9ADB1 /* Scoops */,
 				5D475BE31AE17D8400B9ADB1 /* ScoopsTests */,
 				5D475BC81AE17D8400B9ADB1 /* Products */,
+				5DEFF8941AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,6 +272,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D37DD3F1AE6C27B0038C7A2 /* ArcadeFire.jpg in Resources */,
+				5D37DD411AE6C42C0038C7A2 /* winter-is-coming.jpg in Resources */,
 				5D475BD61AE17D8400B9ADB1 /* Main.storyboard in Resources */,
 				5D475BDB1AE17D8400B9ADB1 /* LaunchScreen.xib in Resources */,
 				5D226B101AE4587600FBE190 /* NewsCell.xib in Resources */,
@@ -407,6 +429,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Scoops/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -419,6 +445,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Scoops/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -6,6 +6,11 @@
 //  Copyright (c) 2015 Cloud On Mobile. All rights reserved.
 //
 
+
+#import <WindowsAzureMobileServices/WindowsAzureMobileServices.h>
+#import "sharedkeys.h"
+
+
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -17,6 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
     return YES;
 }
 
