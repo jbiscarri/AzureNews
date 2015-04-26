@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -22,6 +22,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="126" id="CMk-ds-cWf"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="CMk-ds-cWf"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <segue destination="tLx-04-pFc" kind="embed" identifier="EmbedContainer" id="Wlu-Pa-pgn"/>
                                 </connections>
@@ -146,6 +151,7 @@
                                 <exclude reference="Kw1-Zl-lNe"/>
                                 <exclude reference="Qnh-71-8XI"/>
                                 <exclude reference="YQO-ZZ-J1L"/>
+                                <exclude reference="qWN-sC-ER1"/>
                                 <exclude reference="wnN-O9-4Mk"/>
                                 <exclude reference="yaj-9O-fPl"/>
                             </mask>

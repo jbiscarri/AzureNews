@@ -56,16 +56,6 @@
     });
     
 }
-- (void)loginFB {
-    //login
-    
-   
-        [self loginAppInViewController:self withCompletion:^(NSArray *results) {
-            
-            NSLog(@"Resultados ---> %@", results);
-           
-        }];
-   }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -76,9 +66,7 @@
     // llamamos a los metodos de Azure para crear y configurar la conexion
     [self warmupMSClient];
     
-    [self loginFB];
-
-    
+    [self loginUser];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -127,19 +115,75 @@
 //                                         aText:self.boxNews.text
 //                                      anAuthor:@""
 //                                         aCoor:CLLocationCoordinate2DMake(0, 0)];
-    
-    NSDictionary * scoop= @{@"titulo" : self.titleText.text, @"noticia" : self.boxNews.text};
+    NSUUID  *UUID = [NSUUID UUID];
+    NSString* stringUUID = [UUID UUIDString];
+    NSDictionary * scoop= @{@"titulo" : self.titleText.text, @"noticia" : self.boxNews.text, @"filename":[[stringUUID lowercaseString] stringByAppendingPathExtension:@"jpg"]};
     [news insert:scoop
       completion:^(NSDictionary *item, NSError *error) {
           
           if (error) {
               NSLog(@"Error %@", error);
           } else {
+              
+              NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"barney.gif"], 90);
+              NSString *urlString = [NSString stringWithFormat:@"%@?%@", item[@"imageUri"], item[@"sasQueryString"]];
+              NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+              [request setHTTPMethod:@"PUT"];
+              [request addValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
+              [request setHTTPBody:imageData];
+              NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+              
+              //[conn start];
+              
+              _receivedData = [[NSMutableData alloc] init];
+              [_receivedData setLength:0];
+             
+              
               NSLog(@"OK");
           }
           
       }];
 }
+
+
+#pragma NSUrlConnectionDelegate Methods
+
+-(void)connection:(NSConnection*)conn didReceiveResponse:
+(NSURLResponse *)response
+{
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    if ([httpResponse statusCode] >= 400) {
+        NSLog(@"Status Code: %li", (long)[httpResponse statusCode]);
+        NSLog(@"Remote url returned error %ld %@",(long)[httpResponse statusCode],[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
+    }
+    else {
+        NSLog(@"Safe Response Code: %li", (long)[httpResponse statusCode]);
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:
+(NSData *)data
+{
+    [_receivedData appendData:data];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:
+(NSError *)error
+{
+    //We should do something more with the error handling here
+    NSLog(@"Connection failed! Error - %@ %@",
+          [error localizedDescription],
+          [[error userInfo] objectForKey:
+           NSURLErrorFailingURLStringErrorKey]);
+    
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+ 
+}
+
 
 #pragma mark - keyboard
 
@@ -215,60 +259,68 @@
 
 #pragma mark - Login
 
+- (void)loginUser{
+    [self loginAppInViewController:self withCompletion:^(NSArray *results) {
+        NSLog(@"Resultados ---> %@", results);
+    }];
+}
+
 - (void)loginAppInViewController:(UIViewController *)controller withCompletion:(completeBlock)bloque{
     [self loadUserAuthInfo];
     if( client.currentUser){
-        [client invokeAPI:@"getuserinfofromauthprovider" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
+        [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
             
             //tenemos info extra del usuario
-            NSLog(@"%@", result);
-            self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
+            if (error == nil){
+                NSLog(@"%@", result);
+                self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
+            }else{
+                [self loginWithFacebookController:controller withCompletion:bloque];
+            }
             
         }];
 
         return;
     }
-    
+    [self loginWithFacebookController:controller withCompletion:bloque];
+}
+
+- (void)loginWithFacebookController:(UIViewController*)controller withCompletion:(completeBlock)bloque
+{
     [client loginWithProvider:@"facebook"
-                        controller:controller
-                          animated:YES
-                        completion:^(MSUser *user, NSError *error) {
-                            
-                            if (error) {
-                                NSLog(@"Error en el login : %@", error);
-                                bloque(nil);
-                            } else {
-                                NSLog(@"user -> %@", user);
-                                
-                                [self saveAuthInfo];
-                                [client invokeAPI:@"getuserinfofromauthprovider" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
-                                    
-                                    //tenemos info extra del usuario
-                                    NSLog(@"%@", result);
-                                    self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
-                                    
-                                }];
-                                
-                                bloque(@[user]);
-                            }
-                        }];
-    
+                   controller:controller
+                     animated:YES
+                   completion:^(MSUser *user, NSError *error) {
+                       
+                       if (error) {
+                           NSLog(@"Error en el login : %@", error);
+                           bloque(nil);
+                       } else {
+                           NSLog(@"user -> %@", user);
+                           
+                           [self saveAuthInfo];
+                           [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
+                               
+                               //tenemos info extra del usuario
+                               NSLog(@"%@", result);
+                               self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
+                               
+                           }];
+                           
+                           bloque(@[user]);
+                       }
+                   }];
+
 }
 
 
-- (BOOL)loadUserAuthInfo{
-    
-    
-    
+- (BOOL)loadUserAuthInfo{            
     userFBId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userID"];
     tokenFB = [[NSUserDefaults standardUserDefaults]objectForKey:@"tokenFB"];
     
     if (userFBId) {
         client.currentUser = [[MSUser alloc]initWithUserId:userFBId];
         client.currentUser.mobileServiceAuthenticationToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"tokenFB"];
-        
-
-        
         return TRUE;
     }
     
@@ -284,6 +336,22 @@
     
     
 }
+
+/*
+ NSMutableDictionary *dict = [@{} mutableCopy];
+ dict[@"parameter1"] = @"value1";
+ dict[@"parameter2"] = @"value2";
+ 
+ //if( client.currentUser){
+ [client invokeAPI:@"miprimeracustomapi" body:nil HTTPMethod:@"POST" parameters:dict headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
+ //tenemos info extra del usuario
+ NSLog(@"%@", result);
+ 
+ }];
+ 
+ */
+
+
 
 
 

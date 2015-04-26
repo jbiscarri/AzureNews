@@ -14,7 +14,11 @@ typedef void (^completeBlock)(NSArray* results);
 typedef void (^completeOnError)(NSError *error);
 typedef void (^completionWithURL)(NSURL *theUrl, NSError *error);
 
-@interface ScoopManagerViewController : UIViewController
+@interface ScoopManagerViewController : UIViewController<NSURLConnectionDelegate>
+{
+    NSMutableData* _receivedData;
+
+}
 
 
 @end

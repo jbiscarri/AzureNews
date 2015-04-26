@@ -92,10 +92,8 @@
     MSTable *table = [client tableWithName:@"news"];
     
     MSQuery *queryModel = [[MSQuery alloc]initWithTable:table];
-    [queryModel readWithCompletion:^(NSArray *items, NSInteger totalCount, NSError *error) {
-        
     
-        
+    [queryModel readWithCompletion:^(NSArray *items, NSInteger totalCount, NSError *error) {                    
         for (id item in items) {
             NSLog(@"item -> %@", item);
             Scoop *scoop = [[Scoop alloc]initWithTitle:item[@"titulo"] andPhoto:nil aText:item[@"noticia"] anAuthor:@"nil" aCoor:CLLocationCoordinate2DMake(0, 0)];

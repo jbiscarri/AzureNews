@@ -23,6 +23,7 @@
 		5D475BFF1AE2CC7400B9ADB1 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475BFE1AE2CC7400B9ADB1 /* ContainerViewController.m */; };
 		5D475C021AE3BB4900B9ADB1 /* MyNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D475C011AE3BB4900B9ADB1 /* MyNews.m */; };
 		5DEFF8951AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEFF8941AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework */; };
+		B8358D231AED3BE500CC8BF7 /* barney.gif in Resources */ = {isa = PBXBuildFile; fileRef = B8358D221AED3BE500CC8BF7 /* barney.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		5D475C001AE3BB4900B9ADB1 /* MyNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNews.h; sourceTree = "<group>"; };
 		5D475C011AE3BB4900B9ADB1 /* MyNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNews.m; sourceTree = "<group>"; };
 		5DEFF8941AE7FDC200C6FBCE /* WindowsAzureMobileServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindowsAzureMobileServices.framework; sourceTree = "<group>"; };
+		B8358D221AED3BE500CC8BF7 /* barney.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = barney.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		5D475BBE1AE17D8400B9ADB1 = {
 			isa = PBXGroup;
 			children = (
+				B8358D221AED3BE500CC8BF7 /* barney.gif */,
 				5D37DD421AE6C4340038C7A2 /* fake resources */,
 				5D37DD3D1AE6BF0B0038C7A2 /* sharedkeys.h */,
 				5D475BC91AE17D8400B9ADB1 /* Scoops */,
@@ -273,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D37DD3F1AE6C27B0038C7A2 /* ArcadeFire.jpg in Resources */,
+				B8358D231AED3BE500CC8BF7 /* barney.gif in Resources */,
 				5D37DD411AE6C42C0038C7A2 /* winter-is-coming.jpg in Resources */,
 				5D475BD61AE17D8400B9ADB1 /* Main.storyboard in Resources */,
 				5D475BDB1AE17D8400B9ADB1 /* LaunchScreen.xib in Resources */,
