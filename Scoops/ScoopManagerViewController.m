@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBarView;
 @property (weak, nonatomic) IBOutlet UIImageView *picProfile;
 @property (strong, nonatomic) NSURL *profilePicture;
+@property (weak, nonatomic) IBOutlet UIImageView *imageTook;
 
 @end
 
@@ -61,11 +62,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupKeyboardNotifications];
-    
-    
+        
     // llamamos a los metodos de Azure para crear y configurar la conexion
     [self warmupMSClient];
-    
     [self loginUser];
 }
 
@@ -124,21 +123,19 @@
           if (error) {
               NSLog(@"Error %@", error);
           } else {
-              
-              NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"barney.gif"], 90);
-              NSString *urlString = [NSString stringWithFormat:@"%@?%@", item[@"imageUri"], item[@"sasQueryString"]];
-              NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-              [request setHTTPMethod:@"PUT"];
-              [request addValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
-              [request setHTTPBody:imageData];
-              NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-              
-              //[conn start];
-              
-              _receivedData = [[NSMutableData alloc] init];
-              [_receivedData setLength:0];
-             
-              
+              if (self.imageTook.image){
+                  NSData *imageData = UIImageJPEGRepresentation(self.imageTook.image, 60);
+                  NSString *urlString = [NSString stringWithFormat:@"%@?%@", item[@"imageUri"], item[@"sasQueryString"]];
+                  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+                  [request setHTTPMethod:@"PUT"];
+                  [request addValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
+                  [request setHTTPBody:imageData];
+                  NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+                  
+                  _receivedData = [[NSMutableData alloc] init];
+                  [_receivedData setLength:0];
+                 
+                }
               NSLog(@"OK");
           }
           
@@ -254,7 +251,21 @@
     
 }
 - (IBAction)takePhoto:(id)sender {
+    UIImagePickerController  *picker = [UIImagePickerController new];
     
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }else{
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    picker.delegate = self;
+    
+    picker.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    [self presentViewController:picker
+                       animated:YES
+                     completion:^{ }];
+
 }
 
 #pragma mark - Login
@@ -350,6 +361,16 @@
  }];
  
  */
+
+#pragma mark -  UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage * img = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self dismissViewControllerAnimated:YES
+                             completion:^{ }];
+    self.imageTook.image = img;
+}
 
 
 

@@ -93,13 +93,23 @@
     
     MSQuery *queryModel = [[MSQuery alloc]initWithTable:table];
     
-    [queryModel readWithCompletion:^(NSArray *items, NSInteger totalCount, NSError *error) {                    
+    [queryModel readWithCompletion:^(NSArray *items, NSInteger totalCount, NSError *error) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
         for (id item in items) {
+            NSData *data;
+            if (item[@"imageuri"] != nil && item[@"imageuri"] != [NSNull null]){
+                data = [NSData dataWithContentsOfURL:[NSURL URLWithString:item[@"imageuri"]]];
+            }
             NSLog(@"item -> %@", item);
-            Scoop *scoop = [[Scoop alloc]initWithTitle:item[@"titulo"] andPhoto:nil aText:item[@"noticia"] anAuthor:@"nil" aCoor:CLLocationCoordinate2DMake(0, 0)];
+            Scoop *scoop = [[Scoop alloc]initWithTitle:item[@"titulo"] andPhoto:data aText:item[@"noticia"] anAuthor:@"nil" aCoor:CLLocationCoordinate2DMake(0, 0)];
             [model addObject:scoop];
         }
-        [self.collectionView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
+        });
+
     }];
     
     

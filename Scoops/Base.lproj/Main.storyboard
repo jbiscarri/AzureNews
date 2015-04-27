@@ -59,7 +59,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sf0-fT-aGZ">
-                                <rect key="frame" x="30" y="209" width="540" height="171"/>
+                                <rect key="frame" x="30" y="209" width="398" height="171"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -105,6 +105,14 @@
                                     <constraint firstAttribute="width" constant="50" id="yUJ-5Z-1kx"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SqZ-wM-gpb">
+                                <rect key="frame" x="442" y="209" width="128" height="171"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="Ccc-Ud-oOC"/>
+                                    <constraint firstAttribute="height" constant="171" id="SrA-ew-mNF"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -123,11 +131,13 @@
                             <constraint firstItem="ydu-rT-LAi" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="10" id="SjX-gy-zC1"/>
                             <constraint firstItem="yiQ-B2-smz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="14" id="Ubv-mv-Qnh"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="top" secondItem="LjC-to-RIW" secondAttribute="bottom" id="Vt1-PY-lhT"/>
+                            <constraint firstItem="LjC-to-RIW" firstAttribute="top" secondItem="SqZ-wM-gpb" secondAttribute="bottom" constant="44" id="XdJ-ot-7fP"/>
                             <constraint firstItem="KHt-Nb-xof" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="14" id="Xtk-k1-CW0"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="LjC-to-RIW" secondAttribute="bottom" constant="50" id="YKn-xo-jYC"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="YQO-ZZ-J1L"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="SeB-19-1yj" secondAttribute="bottom" id="Z2I-zJ-6iM"/>
                             <constraint firstItem="LjC-to-RIW" firstAttribute="centerX" secondItem="Sf0-fT-aGZ" secondAttribute="centerX" id="cdz-7O-MxO"/>
+                            <constraint firstItem="SqZ-wM-gpb" firstAttribute="leading" secondItem="Sf0-fT-aGZ" secondAttribute="trailing" constant="14" id="dge-A2-QXT"/>
                             <constraint firstItem="LjC-to-RIW" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="e95-tg-2J7"/>
                             <constraint firstItem="LjC-to-RIW" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="fGz-lY-763"/>
                             <constraint firstItem="Q3X-vt-X9T" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="fs6-3Q-xwH"/>
@@ -139,12 +149,14 @@
                             <constraint firstItem="SeB-19-1yj" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="530" id="qWN-sC-ER1"/>
                             <constraint firstItem="EOG-xb-YB7" firstAttribute="baseline" secondItem="KHt-Nb-xof" secondAttribute="baseline" constant="-44" id="rg7-t4-Pdi"/>
                             <constraint firstAttribute="trailing" secondItem="LjC-to-RIW" secondAttribute="trailing" id="sFg-TW-pJf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SqZ-wM-gpb" secondAttribute="trailing" constant="14" id="wcc-tk-PAc"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="wnN-O9-4Mk"/>
                             <constraint firstItem="Q3X-vt-X9T" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="xB6-3l-XEd"/>
                             <constraint firstItem="SeB-19-1yj" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="yaj-9O-fPl"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="cdz-7O-MxO"/>
                                 <exclude reference="e95-tg-2J7"/>
                                 <exclude reference="fGz-lY-763"/>
                                 <exclude reference="6iu-8O-i19"/>
@@ -159,6 +171,7 @@
                     </view>
                     <connections>
                         <outlet property="boxNews" destination="Sf0-fT-aGZ" id="nQf-T5-DQ8"/>
+                        <outlet property="imageTook" destination="SqZ-wM-gpb" id="t38-yK-KI4"/>
                         <outlet property="picProfile" destination="Q3X-vt-X9T" id="dr8-TZ-Gbg"/>
                         <outlet property="titleText" destination="KHt-Nb-xof" id="GMx-Nh-oKG"/>
                         <outlet property="toolBarView" destination="SeB-19-1yj" id="9Mx-Gy-cBF"/>
