@@ -15,7 +15,7 @@
 @interface NewsCell : UICollectionViewCell
 
 
-@property (weak, nonatomic) Scoop *scoop;
+@property (strong, nonatomic) Scoop *scoop;
 @property (nonatomic) BOOL statusNew;
 
 

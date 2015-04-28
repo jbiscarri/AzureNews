@@ -98,88 +98,37 @@
 
 }
 
-#pragma mark - Azure connect, setup, login etc...
+#pragma mark - actions
 
--(void)warmupMSClient{
-    client = [MSClient clientWithApplicationURL:[NSURL URLWithString:AZUREMOBILESERVICE_ENDPOINT]
-                                 applicationKey:AZUREMOBILESERVICE_APPKEY];
-    
-    NSLog(@"%@", client.debugDescription);
-}
-
-- (void)addNewToAzure{
-    MSTable *news = [client tableWithName:@"news"];
-//    Scoop *scoop = [[Scoop alloc]initWithTitle:self.titleText.text
-//                                      andPhoto:nil
-//                                         aText:self.boxNews.text
-//                                      anAuthor:@""
-//                                         aCoor:CLLocationCoordinate2DMake(0, 0)];
-    NSUUID  *UUID = [NSUUID UUID];
-    NSString* stringUUID = [UUID UUIDString];
-    NSDictionary * scoop= @{@"titulo" : self.titleText.text, @"noticia" : self.boxNews.text, @"filename":[[stringUUID lowercaseString] stringByAppendingPathExtension:@"jpg"]};
-    [news insert:scoop
-      completion:^(NSDictionary *item, NSError *error) {
-          
-          if (error) {
-              NSLog(@"Error %@", error);
-          } else {
-              if (self.imageTook.image){
-                  NSData *imageData = UIImageJPEGRepresentation(self.imageTook.image, 60);
-                  NSString *urlString = [NSString stringWithFormat:@"%@?%@", item[@"imageUri"], item[@"sasQueryString"]];
-                  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-                  [request setHTTPMethod:@"PUT"];
-                  [request addValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
-                  [request setHTTPBody:imageData];
-                  NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-                  
-                  _receivedData = [[NSMutableData alloc] init];
-                  [_receivedData setLength:0];
-                 
-                }
-              NSLog(@"OK");
-          }
-          
-      }];
-}
-
-
-#pragma NSUrlConnectionDelegate Methods
-
--(void)connection:(NSConnection*)conn didReceiveResponse:
-(NSURLResponse *)response
-{
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    if ([httpResponse statusCode] >= 400) {
-        NSLog(@"Status Code: %li", (long)[httpResponse statusCode]);
-        NSLog(@"Remote url returned error %ld %@",(long)[httpResponse statusCode],[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
-    }
-    else {
-        NSLog(@"Safe Response Code: %li", (long)[httpResponse statusCode]);
+- (IBAction)addNew:(id)sender {
+    if( client.currentUser){
+        [self addNewToAzure];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not logged In" message:@"You are not currently logged in. We'll try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [self loginWithFacebookController:self withCompletion:^(NSArray *results) { }];
+        
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:
-(NSData *)data
-{
-    [_receivedData appendData:data];
+
+- (IBAction)takePhoto:(id)sender {
+    UIImagePickerController  *picker = [UIImagePickerController new];
     
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }else{
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    picker.delegate = self;
+    
+    picker.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    [self presentViewController:picker
+                       animated:YES
+                     completion:^{ }];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:
-(NSError *)error
-{
-    //We should do something more with the error handling here
-    NSLog(@"Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:
-           NSURLErrorFailingURLStringErrorKey]);
-    
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
- 
-}
 
 
 #pragma mark - keyboard
@@ -245,29 +194,6 @@
                      }];
 }
 
-- (IBAction)addNew:(id)sender {
-    
-    [self addNewToAzure];
-    
-}
-- (IBAction)takePhoto:(id)sender {
-    UIImagePickerController  *picker = [UIImagePickerController new];
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }else{
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    picker.delegate = self;
-    
-    picker.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    
-    [self presentViewController:picker
-                       animated:YES
-                     completion:^{ }];
-
-}
-
 #pragma mark - Login
 
 - (void)loginUser{
@@ -280,7 +206,8 @@
     [self loadUserAuthInfo];
     if( client.currentUser){
         [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
+
             //tenemos info extra del usuario
             if (error == nil){
                 NSLog(@"%@", result);
@@ -305,10 +232,11 @@
                        
                        if (error) {
                            NSLog(@"Error en el login : %@", error);
-                           bloque(nil);
+                           if (bloque != nil)
+                               bloque(nil);
                        } else {
                            NSLog(@"user -> %@", user);
-                           
+                           [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
                            [self saveAuthInfo];
                            [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
                                
@@ -317,8 +245,8 @@
                                self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
                                
                            }];
-                           
-                           bloque(@[user]);
+                           if (bloque != nil)
+                               bloque(@[user]);
                        }
                    }];
 
@@ -362,6 +290,95 @@
  
  */
 
+
+#pragma mark - Azure connect, setup, login etc...
+
+-(void)warmupMSClient{
+    client = [MSClient clientWithApplicationURL:[NSURL URLWithString:AZUREMOBILESERVICE_ENDPOINT]
+                                 applicationKey:AZUREMOBILESERVICE_APPKEY];
+    
+    NSLog(@"%@", client.debugDescription);
+}
+
+- (void)addNewToAzure{
+    
+    MSTable *news = [client tableWithName:@"news"];
+    NSUUID  *UUID = [NSUUID UUID];
+    NSString* stringUUID = [UUID UUIDString];
+    NSDictionary * scoop= @{@"titulo" : self.titleText.text, @"noticia" : self.boxNews.text, @"filename":[[stringUUID lowercaseString] stringByAppendingPathExtension:@"jpg"]};
+    [news insert:scoop
+      completion:^(NSDictionary *item, NSError *error) {
+          if (error) {
+              NSLog(@"Error %@", error);
+          } else {
+              if (self.imageTook.image){
+                  //Redimensionar imagen
+                  NSData *imageData = [self getDataAndResizeImage:self.imageTook.image];
+                  NSString *urlString = [NSString stringWithFormat:@"%@?%@", item[@"imageUri"], item[@"sasQueryString"]];
+                  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+                  [request setHTTPMethod:@"PUT"];
+                  [request addValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
+                  [request setHTTPBody:imageData];
+                  NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+                  [conn start];
+                  _receivedData = [[NSMutableData alloc] init];
+                  [_receivedData setLength:0];
+                  [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
+              }else{
+                  [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
+              }
+              self.titleText.text = @"";
+              self.boxNews.text = @"";
+              self.imageTook.image = nil;
+              NSLog(@"OK");
+          }
+          
+      }];
+    
+    
+    
+}
+
+
+#pragma mark - NSURLConnectionDelegate Methods
+
+-(void)connection:(NSConnection*)conn didReceiveResponse:
+(NSURLResponse *)response
+{
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    if ([httpResponse statusCode] >= 400) {
+        NSLog(@"Status Code: %li", (long)[httpResponse statusCode]);
+        NSLog(@"Remote url returned error %ld %@",(long)[httpResponse statusCode],[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
+    }
+    else {
+        NSLog(@"Safe Response Code: %li", (long)[httpResponse statusCode]);
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:
+(NSData *)data
+{
+    [_receivedData appendData:data];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:
+(NSError *)error
+{
+    //We should do something more with the error handling here
+    NSLog(@"Connection failed! Error - %@ %@",
+          [error localizedDescription],
+          [[error userInfo] objectForKey:
+           NSURLErrorFailingURLStringErrorKey]);
+    
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    
+}
+
+
 #pragma mark -  UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -373,8 +390,16 @@
 }
 
 
-
-
+#pragma mark - Utils
+- (NSData*)getDataAndResizeImage:(UIImage*)actualImage
+{
+    UIGraphicsBeginImageContext(CGSizeMake(actualImage.size.width/2, actualImage.size.height/2));
+    [actualImage drawInRect:CGRectMake(0,0,actualImage.size.width/2, actualImage.size.height/2)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData *smallData = UIImagePNGRepresentation(newImage);
+    return smallData;
+}
 
 
 @end

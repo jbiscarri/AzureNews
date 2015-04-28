@@ -17,6 +17,8 @@
 @property (nonatomic) CLLocationCoordinate2D coors;
 @property (nonatomic, strong) NSData *image;
 @property (nonatomic, strong) NSDate *dateCreated;
+@property (nonatomic, strong) NSString *status;
+
 
 
 @end
@@ -25,7 +27,7 @@
 @implementation Scoop
 
 
--(id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors{
+- (id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status{
     
     if (self = [super init]) {
         _title = title;
@@ -34,6 +36,7 @@
         _coors = coors;
         _image = img;
         _dateCreated = [NSDate date];
+        _status = status;
     }
     
     return self;

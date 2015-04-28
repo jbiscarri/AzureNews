@@ -31,11 +31,22 @@
     // Do any additional setup after loading the view.
     
     model = [@[]mutableCopy];
-    [self populateModelFromAzure];
+    //[self populateModelFromAzure];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"NewsCell" bundle:nil]
           forCellWithReuseIdentifier:CELLIDENT];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifiedThatUsetHasBeenLoggedIn:) name:@"USER_LOGGED_IN" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,7 +56,6 @@
 
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    
     return 1;
 }
 
@@ -57,22 +67,19 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NewsCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CELLIDENT forIndexPath:indexPath];
-    
     cell.scoop = model[indexPath.row];
-
     return cell;
     
 }
 
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height);
+    return CGSizeMake(UIScreen.mainScreen.bounds.size.width, collectionView.frame.size.height);
 }
 
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    
-    return UIEdgeInsetsMake(10, 30, 10, 30);
+    return UIEdgeInsetsMake(5, 30, 5, 30);
 }
 #pragma mark - Navigation
 
@@ -84,57 +91,45 @@
 }
 
 #pragma mark - modelo
-- (void)populateModelFromAzure{
-    
-    MSClient *  client = [MSClient clientWithApplicationURL:[NSURL URLWithString:AZUREMOBILESERVICE_ENDPOINT]
-                                             applicationKey:AZUREMOBILESERVICE_APPKEY];
+- (void)populateModelFromAzure:(MSClient*)client{
     
     MSTable *table = [client tableWithName:@"news"];
     
-    MSQuery *queryModel = [[MSQuery alloc]initWithTable:table];
-    
-    [queryModel readWithCompletion:^(NSArray *items, NSInteger totalCount, NSError *error) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    MSQuery *queryModel = [[MSQuery alloc] initWithTable:table];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"owner = %@", client.currentUser.userId];
+    queryModel.predicate = predicate;
+    model = [@[]mutableCopy];
 
-        for (id item in items) {
-            NSData *data;
-            if (item[@"imageuri"] != nil && item[@"imageuri"] != [NSNull null]){
-                data = [NSData dataWithContentsOfURL:[NSURL URLWithString:item[@"imageuri"]]];
+    [queryModel readWithCompletion:^(NSArray *items, NSInteger totalCount, NSError *error) {
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            for (id item in items) {
+                NSData *data;
+                if (item[@"imageuri"] != nil && item[@"imageuri"] != [NSNull null]){
+                    data = [NSData dataWithContentsOfURL:[NSURL URLWithString:item[@"imageuri"]]];
+                }
+                NSLog(@"item -> %@", item);
+                Scoop *scoop = [[Scoop alloc]initWithTitle:item[@"titulo"]
+                                                  andPhoto:data
+                                                     aText:item[@"noticia"]
+                                                  anAuthor:@"nil"
+                                                     aCoor:CLLocationCoordinate2DMake(0, 0)
+                                                    status:item[@"estado"]];
+                [model addObject:scoop];
             }
-            NSLog(@"item -> %@", item);
-            Scoop *scoop = [[Scoop alloc]initWithTitle:item[@"titulo"] andPhoto:data aText:item[@"noticia"] anAuthor:@"nil" aCoor:CLLocationCoordinate2DMake(0, 0)];
-            [model addObject:scoop];
-        }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.collectionView reloadData];
             });
-        });
-
+        //});
     }];
     
     
 }
 
-
-//- (void) populateModel{
-//    
-//    UIImage * img2 = [UIImage imageNamed:@"winter-is-coming.jpg"];
-//    UIImage * img = [UIImage imageNamed:@"Arcadefire.jpg"];
-//    Scoop *new1 = [[Scoop alloc]initWithTitle:@"Winter is coming"
-//                                     andPhoto:UIImageJPEGRepresentation(img2, 1.f)
-//                                        aText:@"Winter is comming is the first chapter...."
-//                                     anAuthor:@"Juan"
-//                                        aCoor:CLLocationCoordinate2DMake(0, 0)];
-//    
-//    Scoop *new2 = [[Scoop alloc]initWithTitle:@"Arcade Fire live"
-//                                     andPhoto:UIImageJPEGRepresentation(img, 1.f)
-//                                        aText:@"Arcade Fire es uno de los grupos más sorprendetes en directo"
-//                                     anAuthor:@"Juan"
-//                                        aCoor:CLLocationCoordinate2DMake(0, 0)];
-//
-//    
-//    model = @[new1, new2];
-//}
+- (void)notifiedThatUsetHasBeenLoggedIn:(NSNotification*)notification
+{
+    MSClient *client = notification.userInfo[@"client"];
+    [self populateModelFromAzure:client];
+}
 
 
 

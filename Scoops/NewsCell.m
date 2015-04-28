@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imagen;
 @property (weak, nonatomic) IBOutlet UILabel *titleNews;
 @property (weak, nonatomic) IBOutlet UILabel *status;
+@property (weak, nonatomic) IBOutlet UIButton *publishButton;
 
 @end
 
@@ -39,7 +40,10 @@
     
     self.imagen.image = [UIImage imageWithData:_scoop.image];
     self.titleNews.text = _scoop.title;
-    self.status.text = @"In Review";
+    self.status.text = _scoop.status;
+    
+}
+- (IBAction)publishClicked:(id)sender {
     
 }
 
