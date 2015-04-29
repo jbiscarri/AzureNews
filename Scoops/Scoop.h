@@ -11,8 +11,8 @@
 
 @interface Scoop : NSObject
 
--(id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status scoopId:(NSString*)scoopId;
 - (void)updateStatus:(NSString*)status;
+- (id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status scoopId:(NSString*)scoopId votes:(int)votes;
 
 
 @property (readonly) NSString *title;
@@ -23,6 +23,8 @@
 @property (readonly) NSDate *dateCreated;
 @property (readonly) NSString *status;
 @property (readonly) NSString *scoopId;
+@property (readonly) int votes;
+
 
 
 

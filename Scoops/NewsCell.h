@@ -24,6 +24,7 @@
 @property (strong, nonatomic) Scoop *scoop;
 @property (nonatomic) BOOL statusNew;
 @property (nonatomic, strong) MSClient *client;
+@property (weak, nonatomic) IBOutlet UILabel *votes;
 
 
 @end

@@ -24,6 +24,7 @@
 - (void)awakeFromNib {
     // Initialization code
     self.backgroundColor = [UIColor clearColor];
+    [self updadeColors];
 }
 
 
@@ -41,9 +42,10 @@
     self.imagen.image = [UIImage imageWithData:_scoop.image];
     self.titleNews.text = _scoop.title;
     self.status.text = _scoop.status;
-    self.publishButton.hidden = [_scoop.status isEqualToString:@"PUBLISHED"];
-    
+    self.publishButton.enabled = ![_scoop.status isEqualToString:@"PUBLISHED"] && ![_scoop.status isEqualToString:@"PENDING"];
+    [self updadeColors];
 }
+
 - (IBAction)publishClicked:(id)sender {
     if (self.client.currentUser){
         [self.client invokeAPI:@"preparetopublishnew" body:nil HTTPMethod:@"POST" parameters:@{@"newsId":self.scoop.scoopId} headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
@@ -51,10 +53,25 @@
             {
                 [self.scoop updateStatus:@"PENDING"];
                 [self.delegate NewsCellDelegateShouldUpdateCollection];
+                [self updadeColors];
             }
         }];
     }
-    
+}
+
+- (void)updadeColors
+{
+    if ([_scoop.status isEqualToString:@"NOT PUBLISHED"]){
+        self.imagen.alpha = .5;
+        self.status.textColor = [UIColor redColor];
+    }else if ([_scoop.status isEqualToString:@"PENDING"]){
+        self.imagen.alpha = .5;
+        self.status.textColor = [UIColor orangeColor];
+    }else if ([_scoop.status isEqualToString:@"PUBLISHED"]){
+        self.imagen.alpha = 1;
+        self.status.textColor = [UIColor greenColor];
+    }
+    self.votes.text = [NSString stringWithFormat:@"Votes: %d", self.scoop.votes];
 }
 
 @end

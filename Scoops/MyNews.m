@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) MSClient *client;
 
+
 @end
 
 @implementation MyNews
@@ -42,6 +43,7 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifiedThatUsetHasBeenLoggedIn:) name:@"USER_LOGGED_IN" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifiedThatShouldRefreshData:) name:@"SHOULD_REFRESH_DATA" object:nil];    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -114,10 +116,11 @@
                 Scoop *scoop = [[Scoop alloc] initWithTitle:item[@"titulo"]
                                                    andPhoto:data
                                                       aText:item[@"noticia"]
-                                                   anAuthor:@"nil"
+                                                   anAuthor:item[@"autor"]
                                                       aCoor:CLLocationCoordinate2DMake(0, 0)
                                                      status:item[@"estado"]
-                                                    scoopId:item[@"id"]];
+                                                    scoopId:item[@"id"]
+                                                      votes:[item[@"votes"] intValue]];
                 [model addObject:scoop];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -133,6 +136,11 @@
 {
     MSClient *client = notification.userInfo[@"client"];
     [self populateModelFromAzure:client];
+}
+
+- (void)notifiedThatShouldRefreshData:(NSNotification*)notification
+{
+    [self populateModelFromAzure:self.client];
 }
 
 #pragma mark - NewsCellDelegate
