@@ -41,9 +41,19 @@
     self.imagen.image = [UIImage imageWithData:_scoop.image];
     self.titleNews.text = _scoop.title;
     self.status.text = _scoop.status;
+    self.publishButton.hidden = [_scoop.status isEqualToString:@"PUBLISHED"];
     
 }
 - (IBAction)publishClicked:(id)sender {
+    if (self.client.currentUser){
+        [self.client invokeAPI:@"preparetopublishnew" body:nil HTTPMethod:@"POST" parameters:@{@"newsId":self.scoop.scoopId} headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
+            if (error == nil)
+            {
+                [self.scoop updateStatus:@"PENDING"];
+                [self.delegate NewsCellDelegateShouldUpdateCollection];
+            }
+        }];
+    }
     
 }
 

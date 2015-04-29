@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSData *image;
 @property (nonatomic, strong) NSDate *dateCreated;
 @property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSString *scoopId;
+
 
 
 
@@ -27,7 +29,7 @@
 @implementation Scoop
 
 
-- (id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status{
+-(id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status scoopId:(NSString*)scoopId{
     
     if (self = [super init]) {
         _title = title;
@@ -37,10 +39,16 @@
         _image = img;
         _dateCreated = [NSDate date];
         _status = status;
+        _scoopId = scoopId;
     }
     
     return self;
     
+}
+
+- (void)updateStatus:(NSString*)status
+{
+    self.status = status;
 }
 
 
