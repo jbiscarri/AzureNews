@@ -11,7 +11,7 @@
 
 @interface Scoop : NSObject
 
--(id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status;
+-(id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status scoopId:(NSString*)scoopId;
 
 @property (readonly) NSString *title;
 @property (readonly) NSString *text;
@@ -20,6 +20,8 @@
 @property (readonly) NSData *image;
 @property (readonly) NSDate *dateCreated;
 @property (readonly) NSString *status;
+@property (readonly) NSString *scoopId;
+
 
 
 @end

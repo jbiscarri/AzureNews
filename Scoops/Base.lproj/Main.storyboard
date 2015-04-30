@@ -75,11 +75,6 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SeB-19-1yj">
                                 <rect key="frame" x="0.0" y="550" width="600" height="50"/>
                                 <items>
-                                    <barButtonItem style="plain" systemItem="bookmarks" id="g9z-6u-oUU">
-                                        <connections>
-                                            <action selector="ownNews:" destination="vXZ-lx-hvc" id="7nl-Qm-Fc7"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="gIE-Zs-kLZ"/>
                                     <barButtonItem systemItem="add" id="MyM-H1-DmC">
                                         <connections>
@@ -212,7 +207,6 @@
                     <size key="freeformSize" width="568" height="106"/>
                     <connections>
                         <segue destination="LAy-fi-L93" kind="custom" identifier="FirstEmbed" customClass="EmptySegue" id="6dI-Jh-SfZ"/>
-                        <segue destination="ZDg-6i-7ue" kind="custom" identifier="SecondEmbed" customClass="EmptySegue" id="Fem-84-vCt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4H-Jx-Jow" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -265,24 +259,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9X-Rj-CdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2388" y="622"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="PUC-ml-7z3">
-            <objects>
-                <viewController id="ZDg-6i-7ue" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="MkC-Zq-pMr"/>
-                        <viewControllerLayoutGuide type="bottom" id="37G-Vb-Dub"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dCm-Kv-C3p">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h1S-eR-LBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2402" y="1126"/>
         </scene>
     </scenes>
 </document>

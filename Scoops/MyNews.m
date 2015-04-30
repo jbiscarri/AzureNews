@@ -21,6 +21,7 @@
     
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) MSClient *client;
 
 @end
 
@@ -68,6 +69,7 @@
     
     NewsCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CELLIDENT forIndexPath:indexPath];
     cell.scoop = model[indexPath.row];
+    cell.client = self.client;
     return cell;
     
 }
@@ -92,7 +94,7 @@
 
 #pragma mark - modelo
 - (void)populateModelFromAzure:(MSClient*)client{
-    
+    _client = client;
     MSTable *table = [client tableWithName:@"news"];
     
     MSQuery *queryModel = [[MSQuery alloc] initWithTable:table];
@@ -108,12 +110,13 @@
                     data = [NSData dataWithContentsOfURL:[NSURL URLWithString:item[@"imageuri"]]];
                 }
                 NSLog(@"item -> %@", item);
-                Scoop *scoop = [[Scoop alloc]initWithTitle:item[@"titulo"]
-                                                  andPhoto:data
-                                                     aText:item[@"noticia"]
-                                                  anAuthor:@"nil"
-                                                     aCoor:CLLocationCoordinate2DMake(0, 0)
-                                                    status:item[@"estado"]];
+                Scoop *scoop = [[Scoop alloc] initWithTitle:item[@"titulo"]
+                                                   andPhoto:data
+                                                      aText:item[@"noticia"]
+                                                   anAuthor:@"nil"
+                                                      aCoor:CLLocationCoordinate2DMake(0, 0)
+                                                     status:item[@"estado"]
+                                                    scoopId:item[@"id"]];
                 [model addObject:scoop];
             }
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -90,13 +90,7 @@
     }
 }
 
-- (IBAction)swapAction:(id)sender {
-    [self.containerViewController swapViewControllers];
-}
-- (IBAction)ownNews:(id)sender {
-    [self.containerViewController swapViewControllers];
 
-}
 
 #pragma mark - actions
 

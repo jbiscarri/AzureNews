@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WindowsAzureMobileServices/WindowsAzureMobileServices.h>
 
 
 
@@ -17,6 +18,7 @@
 
 @property (strong, nonatomic) Scoop *scoop;
 @property (nonatomic) BOOL statusNew;
+@property (nonatomic, strong) MSClient *client;
 
 
 @end
