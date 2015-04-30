@@ -16,11 +16,12 @@
 #import "ContainerViewController.h"
 #import "sharedkeys.h"
 #import "Scoop.h"
+#import "MBProgressHUD.h"
 
 @interface ScoopManagerViewController (){
     
     MSClient * client;
-    
+    NSString *userName;
     NSString *userFBId;
     NSString *tokenFB;
 }
@@ -33,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *picProfile;
 @property (strong, nonatomic) NSURL *profilePicture;
 @property (weak, nonatomic) IBOutlet UIImageView *imageTook;
+@property (strong, nonatomic) MBProgressHUD *hud;
+
 
 @end
 
@@ -53,9 +56,7 @@
             self.picProfile.layer.cornerRadius = self.picProfile.frame.size.width / 2;
             self.picProfile.clipsToBounds = YES;
         });
-       
     });
-    
 }
 
 - (void)viewDidLoad {
@@ -64,6 +65,7 @@
     [self setupKeyboardNotifications];
         
     // llamamos a los metodos de Azure para crear y configurar la conexion
+    
     [self warmupMSClient];
     [self loginUser];
 }
@@ -101,7 +103,6 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not logged In" message:@"You are not currently logged in. We'll try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
         [self loginWithFacebookController:self withCompletion:^(NSArray *results) { }];
-        
     }
 }
 
@@ -200,18 +201,18 @@
     [self loadUserAuthInfo];
     if( client.currentUser){
         [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
-
             //tenemos info extra del usuario
             if (error == nil){
                 NSLog(@"%@", result);
                 self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
+                userName = result[@"name"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
+
             }else{
                 [self loginWithFacebookController:controller withCompletion:bloque];
             }
             
         }];
-
         return;
     }
     [self loginWithFacebookController:controller withCompletion:bloque];
@@ -237,7 +238,8 @@
                                //tenemos info extra del usuario
                                NSLog(@"%@", result);
                                self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
-                               
+                               userName = result[@"name"];
+
                            }];
                            if (bloque != nil)
                                bloque(@[user]);
@@ -299,7 +301,7 @@
     MSTable *news = [client tableWithName:@"news"];
     NSUUID  *UUID = [NSUUID UUID];
     NSString* stringUUID = [UUID UUIDString];
-    NSDictionary * scoop= @{@"titulo" : self.titleText.text, @"noticia" : self.boxNews.text, @"filename":[[stringUUID lowercaseString] stringByAppendingPathExtension:@"jpg"]};
+    NSDictionary * scoop= @{@"titulo" : self.titleText.text, @"noticia" : self.boxNews.text, @"filename":[[stringUUID lowercaseString] stringByAppendingPathExtension:@"jpg"], @"autor":userName};
     [news insert:scoop
       completion:^(NSDictionary *item, NSError *error) {
           if (error) {
@@ -317,16 +319,14 @@
                   [conn start];
                   _receivedData = [[NSMutableData alloc] init];
                   [_receivedData setLength:0];
-                  [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
               }else{
-                  [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
               }
               self.titleText.text = @"";
               self.boxNews.text = @"";
               self.imageTook.image = nil;
               NSLog(@"OK");
           }
-          
+          [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOULD_REFRESH_DATA" object:self];
       }];
     
     

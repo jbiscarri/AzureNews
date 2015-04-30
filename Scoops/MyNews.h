@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewsCell.h"
 
-@interface MyNews : UIViewController
+
+@interface MyNews : UIViewController<NewsCellDelegate>
 
 @end

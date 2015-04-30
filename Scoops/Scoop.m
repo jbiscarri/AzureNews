@@ -19,9 +19,7 @@
 @property (nonatomic, strong) NSDate *dateCreated;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *scoopId;
-
-
-
+@property (nonatomic, assign) int votes;
 
 @end
 
@@ -29,8 +27,7 @@
 @implementation Scoop
 
 
--(id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status scoopId:(NSString*)scoopId{
-    
+-(id)initWithTitle:(NSString *)title andPhoto:(NSData *)img aText:(NSString *)text anAuthor:(NSString *)author aCoor:(CLLocationCoordinate2D)coors status:(NSString*)status scoopId:(NSString*)scoopId votes:(int)votes  {
     if (self = [super init]) {
         _title = title;
         _text = text;
@@ -40,10 +37,16 @@
         _dateCreated = [NSDate date];
         _status = status;
         _scoopId = scoopId;
+        _votes = votes;
     }
     
     return self;
     
+}
+
+- (void)updateStatus:(NSString*)status
+{
+    self.status = status;
 }
 
 
