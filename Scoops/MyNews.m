@@ -67,7 +67,8 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (model.count==0)
+        return nil;
     NewsCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CELLIDENT forIndexPath:indexPath];
     cell.scoop = model[indexPath.row];
     cell.client = self.client;

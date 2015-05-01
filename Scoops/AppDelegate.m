@@ -9,9 +9,11 @@
 
 #import <WindowsAzureMobileServices/WindowsAzureMobileServices.h>
 #import "sharedkeys.h"
-
-
 #import "AppDelegate.h"
+#import "GAI.h"
+
+#define GA_TRACKING_CODE @"UA-62497829-1"
+
 
 @interface AppDelegate ()
 
@@ -21,7 +23,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    [GAI sharedInstance].optOut = NO;
+    [GAI sharedInstance].dispatchInterval = 10;
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [[GAI sharedInstance].logger setLogLevel:kGAILogLevelNone];
+    [[GAI sharedInstance] trackerWithTrackingId:GA_TRACKING_CODE];
+    
+    
     return YES;
 }
 

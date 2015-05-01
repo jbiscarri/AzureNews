@@ -68,6 +68,16 @@
     
     [self warmupMSClient];
     [self loginUser];
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self requestWhenInUseAuthorization];
+    
+    [self updateLocalization];
+    self.localizationTimer = [NSTimer scheduledTimerWithTimeInterval:5
+                                                              target:self
+                                                            selector:@selector(updateLocalization)
+                                                            userInfo:nil
+                                                             repeats:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -200,19 +210,8 @@
 - (void)loginAppInViewController:(UIViewController *)controller withCompletion:(completeBlock)bloque{
     [self loadUserAuthInfo];
     if( client.currentUser){
-        [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
-            //tenemos info extra del usuario
-            if (error == nil){
-                NSLog(@"%@", result);
-                self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
-                userName = result[@"name"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
-
-            }else{
-                [self loginWithFacebookController:controller withCompletion:bloque];
-            }
-            
-        }];
+        [self getUserInfo:YES controller:controller bloque:bloque];
+        
         return;
     }
     [self loginWithFacebookController:controller withCompletion:bloque];
@@ -233,14 +232,7 @@
                            NSLog(@"user -> %@", user);
                            [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
                            [self saveAuthInfo];
-                           [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
-                               
-                               //tenemos info extra del usuario
-                               NSLog(@"%@", result);
-                               self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
-                               userName = result[@"name"];
-
-                           }];
+                           [self getUserInfo:NO controller:controller bloque:bloque];
                            if (bloque != nil)
                                bloque(@[user]);
                        }
@@ -248,8 +240,32 @@
 
 }
 
+- (void)getUserInfo:(BOOL)previousError controller:(UIViewController*)controller bloque:(completeBlock)bloque
+{
+   
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeText;
+    self.hud.detailsLabelText = @"Loading user info";
+    [self.hud show:YES];
+    [client invokeAPI:@"getcurrentuserinfo" body:nil HTTPMethod:@"GET" parameters:nil headers:nil completion:^(id result, NSHTTPURLResponse *response, NSError *error) {
+        if (error == nil){
+            //tenemos info extra del usuario
+            NSLog(@"%@", result);
+            self.profilePicture = [NSURL URLWithString:result[@"picture"][@"data"][@"url"]];
+            userName = result[@"name"];
+            if (previousError)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"USER_LOGGED_IN" object:self userInfo:@{@"client":client}];
+            [self.hud hide:YES];
+        }else{
+            if (previousError)
+                [self loginWithFacebookController:controller withCompletion:bloque];
+            [self.hud hide:YES];            
+        }
 
-- (BOOL)loadUserAuthInfo{            
+    }];
+}
+
+- (BOOL)loadUserAuthInfo{
     userFBId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userID"];
     tokenFB = [[NSUserDefaults standardUserDefaults]objectForKey:@"tokenFB"];
     
@@ -301,10 +317,22 @@
     MSTable *news = [client tableWithName:@"news"];
     NSUUID  *UUID = [NSUUID UUID];
     NSString* stringUUID = [UUID UUIDString];
-    NSDictionary * scoop= @{@"titulo" : self.titleText.text, @"noticia" : self.boxNews.text, @"filename":[[stringUUID lowercaseString] stringByAppendingPathExtension:@"jpg"], @"autor":userName};
+    NSDictionary * scoop= @{@"titulo" : self.titleText.text,
+                            @"noticia" : self.boxNews.text,
+                            @"filename":[[stringUUID lowercaseString] stringByAppendingPathExtension:@"jpg"],
+                            @"autor":userName,
+                            @"longitud": (self.location==nil)?@"":@(self.location.coordinate.longitude),
+                            @"latitud": (self.location==nil)?@"":@(self.location.coordinate.latitude)};
     [news insert:scoop
       completion:^(NSDictionary *item, NSError *error) {
           if (error) {
+              self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+              self.hud.mode = MBProgressHUDModeText;
+              self.hud.detailsLabelText = error.userInfo[@"NSLocalizedDescription"];
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:2];
+
+              
               NSLog(@"Error %@", error);
           } else {
               if (self.imageTook.image){
@@ -325,8 +353,9 @@
               self.boxNews.text = @"";
               self.imageTook.image = nil;
               NSLog(@"OK");
+              [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOULD_REFRESH_DATA" object:self];
+
           }
-          [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOULD_REFRESH_DATA" object:self];
       }];
     
     
@@ -395,5 +424,58 @@
     return smallData;
 }
 
+
+#pragma mark - CoreLocation
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations
+{
+    self.location = [locations lastObject];
+    [self performSelector:@selector(stopTracking) withObject:nil afterDelay:5];
+}
+
+#pragma mark - Active Localization
+
+- (void)updateLocalization{
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)stopTracking
+{
+    [self.locationManager stopUpdatingLocation];
+
+}
+
+
+- (void)requestWhenInUseAuthorization
+{
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+        
+        // If the status is denied or only granted for when in use, display an alert
+        if (status == kCLAuthorizationStatusDenied) {
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not acccepted"
+                                                                message:@"Please active location in settings"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                      otherButtonTitles:@"Ok", nil];
+            [alertView show];
+        }
+        // The user has not enabled any location services. Request background authorization.
+        else if (status == kCLAuthorizationStatusNotDetermined) {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+    }
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        // Send the user to the Settings for this app
+        NSURL *settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        [[UIApplication sharedApplication] openURL:settingsURL];
+    }
+}
 
 @end
