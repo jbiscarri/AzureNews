@@ -1,6 +1,6 @@
 #Práctica Cloud Computing#
 
-**App**
+**App (Branch master)**
 --
 
 La app dispone de zona de autor y de lector.
